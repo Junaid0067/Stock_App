@@ -16,7 +16,7 @@ app.use('/', appRoute);
 const updateStockPrices = () => {
     setInterval(async () => {
       try {
-        await axios.post('https://localhost:8080/update');
+        await axios.post('https://stock-tracker-d16p.onrender.com/update');
       } catch (error) {
         console.error('Error updating stock prices:', error);
       }
