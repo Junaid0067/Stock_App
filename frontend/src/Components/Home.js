@@ -7,7 +7,7 @@ function Home() {
   const [selectedPrice, setSelectedPrice] = useState(null);
   const fetchPriceForSelectedStock = async ()=>{
        await fetch(
-            "https://stock-app-server.vercel.app/getStocksData")
+            "https://localhost:8080/getStocksData")
                         .then((res) => res.json())
                         .then((data) => {
                             setStockData(data);
