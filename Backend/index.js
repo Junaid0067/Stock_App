@@ -9,7 +9,7 @@ connectToMongoDB();
 
 app.use(cors(
     {
-        origin:["stock-app-server.vercel.app"],
+        origin:["https://stock-app-server.vercel.app/"],
         methods:["POST","GET"],
         credentails:true
     }
