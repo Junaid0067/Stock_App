@@ -43,7 +43,7 @@ function StockDropdown() {
     fetchPriceForSelectedStock();
 
     // Setting up an interval to fetch updated price every minute
-    const interval = setInterval(fetchPriceForSelectedStock, 2000);
+    const interval = setInterval(fetchPriceForSelectedStock, 60000);
 
     // Clean up the interval when the component unmounts
     return () => clearInterval(interval);
