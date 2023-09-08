@@ -11,12 +11,10 @@ function Home() {
                         .then((res) => res.json())
                         .then((data) => {
                             setStockData(data);
-                            if (data.length > 0) {
-                                 if (data.find((stock) => stock.stockName === selectedStock)) {
-            setSelectedPrice(data[0].price);
-          } else {
-            setSelectedStock(data[0].stockName);
-          }
+                             if (data.length > 0) {
+          setSelectedStock(data[0].stockName); // Select the first stock by default
+          setSelectedPrice(data[0].price); // Set the default price
+        }
                               }
                         })
     }
@@ -31,9 +29,15 @@ function Home() {
 
   }, []);
 
-  const handleDropdownChange = (event) => {
+   const handleDropdownChange = (event) => {
     const selectedStockName = event.target.value;
     setSelectedStock(selectedStockName);
+
+    // Find the corresponding price based on the selected stockName
+    const selectedStockData = stockData.find((stock) => stock.stockName === selectedStockName);
+    if (selectedStockData) {
+      setSelectedPrice(selectedStockData.price);
+    }
   };
 
   return (
