@@ -29,7 +29,7 @@ function StockDropdown() {
     // Function to fetch and update the price for the selected stock
     const fetchPriceForSelectedStock = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/api/stocks/${selectedStock}`);
+        const response = await fetch(`https://stock-tracker-d16p.onrender.com/${selectedStock}`);
         const data = await response.json();
         if (data.price) {
           setSelectedPrice(data.price);
