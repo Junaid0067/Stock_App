@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+const axios = require('axios');
 
 function Home() {
   const [stockData, setStockData] = useState([]);
   const [selectedStock, setSelectedStock] = useState([]);
   const [selectedPrice, setSelectedPrice] = useState(null);
   const fetchPriceForSelectedStock = ()=>{
-        fetch(
+        axios.get(
             "https://stock-app-server.vercel.app/getStocksData")
                         .then((res) => res.json())
                         .then((data) => {
