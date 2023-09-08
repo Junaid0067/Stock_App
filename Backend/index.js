@@ -7,13 +7,7 @@ const axios = require('axios');
 const  appRoute  = require('./Routes/appRoute');
 connectToMongoDB();
 
-app.use(cors(
-    {
-        origin:["https://localhost:8080"],
-        methods:["POST","GET"],
-        credentials:true
-    }
-))
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
