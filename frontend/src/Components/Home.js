@@ -5,8 +5,8 @@ function Home() {
   const [stockData, setStockData] = useState([]);
   const [selectedStock, setSelectedStock] = useState([]);
   const [selectedPrice, setSelectedPrice] = useState(null);
-  const fetchPriceForSelectedStock = ()=>{
-        axios.get(
+  const fetchPriceForSelectedStock = async ()=>{
+       await axios.get(
             "https://stock-app-server.vercel.app/getStocksData")
                         .then((res) => res.json())
                         .then((data) => {
@@ -19,14 +19,14 @@ function Home() {
     }
   //useEffect to fetch stock price data when the selected stock changes
   useEffect(() => {
-    
+    fetchPriceForSelectedStock();
     // Setting up an interval to fetch updated price every minute
     const interval = setInterval(fetchPriceForSelectedStock, 60000);
 
     // Cleaning up the interval when the component unmounts
     return () => clearInterval(interval);
 
-  }, [selectedStock]);
+  }, []);
 
   const handleDropdownChange = (event) => {
     const selectedStockName = event.target.value;
