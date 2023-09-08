@@ -47,7 +47,7 @@ router.post('/update', async (req, res) => {
 router.get('/:stockName', async (req, res) => {
   const { stockName } = req.params;
   try {
-    const stock = await Stock.findOne({ stockName });
+    const stock = await Stocks.findOne({ stockName });
     if (!stock) {
       res.status(404).json({ message: 'Stock not found' });
     } else {
