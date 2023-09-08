@@ -6,7 +6,7 @@ function StockDropdown() {
   const [selectedPrice, setSelectedPrice] = useState(null);
 
   useEffect(() => {
-    // Fetch stock data from your updated API endpoint (adjust the URL)
+    // Fetching stock data from your updated API endpoint
     fetch('https://stock-tracker-d16p.onrender.com/getStocksData')
       .then((response) => response.json())
       .then((data) => {
@@ -42,7 +42,7 @@ function StockDropdown() {
     // Fetch price initially when the component mounts
     fetchPriceForSelectedStock();
 
-    // Set up an interval to fetch updated price every minute
+    // Setting up an interval to fetch updated price every minute
     const interval = setInterval(fetchPriceForSelectedStock, 2000);
 
     // Clean up the interval when the component unmounts
@@ -55,18 +55,37 @@ function StockDropdown() {
   };
 
   return (
-    <div>
-      <h2>Select a Stock:</h2>
-      <select value={selectedStock} onChange={handleDropdownChange}>
-        {stockData.map((stock) => (
-          <option key={stock._id} value={stock.stockName}>
-            {stock.stockName}
-          </option>
-        ))}
-      </select>
-      {selectedPrice !== null && (
-        <p>Selected Price for {selectedStock}: ${selectedPrice}</p>
+    <div className="container mt-5">
+      <h1 className="text-center">Stock Price Tracker</h1>
+      <div className="row justify-content-center mt-3">
+        <div className="col-md-6">
+          <div className="card shadow">
+            <div className="card-body">
+              <h3 className="text-center mb-4">Stock Price</h3>
+              <div className="form-group">
+                <label htmlFor="stockDropdown">Select a Stock:</label>
+                <select
+                  className="form-control"
+                  id="stockDropdown"
+                  value={selectedStock}
+                  onChange={handleDropdownChange}
+                >
+                  {stockData.map((option) => (
+                    <option key={option._id} value={option.stockName}>
+                      {option.stockName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="text-center card shadow my-5">
+              {selectedPrice !== null && (
+        <h4>Selected Price for {selectedStock}: ${selectedPrice}</h4>
       )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
