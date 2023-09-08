@@ -20,7 +20,7 @@ const updateStockPrices = () => {
       } catch (error) {
         console.error('Error updating stock prices:', error);
       }
-    }, 60000); // 1 minute interval
+    }, 2000); // 1 minute interval
   };
   
 
