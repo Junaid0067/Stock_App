@@ -22,7 +22,7 @@ app.use('/', appRoute);
 const updateStockPrices = () => {
     setInterval(async () => {
       try {
-        await axios.post('http://localhost:8080/update');
+        await axios.post('https://stock-app-server.vercel.app/update');
       } catch (error) {
         console.error('Error updating stock prices:', error);
       }
