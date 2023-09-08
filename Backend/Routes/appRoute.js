@@ -43,6 +43,22 @@ router.post('/update', async (req, res) => {
     }
   });
 
+// Route to fetch stock price by stockName
+router.get('/:stockName', async (req, res) => {
+  const { stockName } = req.params;
+  try {
+    const stock = await Stock.findOne({ stockName });
+    if (!stock) {
+      res.status(404).json({ message: 'Stock not found' });
+    } else {
+      res.json({ price: stock.price });
+    }
+  } catch (error) {
+    console.error('Error fetching stock price:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
 
 
 
