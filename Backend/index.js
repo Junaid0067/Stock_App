@@ -11,7 +11,7 @@ app.use(cors(
     {
         origin:["https://stock-app-bay.vercel.app"],
         methods:["POST","GET"],
-        credentails:true
+        credentials:true
     }
 ))
 app.use(express.json());
