@@ -7,7 +7,13 @@ const axios = require('axios');
 const  appRoute  = require('./Routes/appRoute');
 connectToMongoDB();
 
-app.use(cors())
+app.use(cors(
+    {
+        origin:["stock-app-server.vercel.app"],
+        methods:["POST","GET"],
+        credentails:true
+    }
+))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
