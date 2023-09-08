@@ -29,7 +29,7 @@ function StockDropdown() {
 
     const interval = setInterval(() => {
       fetchData(); // Fetch updated data every minute
-    }, 60000);
+    }, 2000);
 
     return () => {
       clearInterval(interval); // Clean up the interval
