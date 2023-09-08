@@ -1,35 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import axios from "axios";
 
-function Home() {
+function StockDropdown() {
   const [stockData, setStockData] = useState([]);
-  const [selectedStock, setSelectedStock] = useState([]);
+  const [selectedStock, setSelectedStock] = useState('');
   const [selectedPrice, setSelectedPrice] = useState(null);
-  const fetchPriceForSelectedStock = async ()=>{
-       await fetch(
-            "https://stock-tracker-d16p.onrender.com/getStocksData")
-                        .then((res) => res.json())
-                        .then((data) => {
-                            setStockData(data);
-                             if (data.length > 0) {
-          setSelectedStock(data[0].stockName); // Select the first stock by default
-          setSelectedPrice(data[0].price); // Set the default price
-        }
-                              }
-                        })
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch('https://stock-tracker-d16p.onrender.com/getStocksData');
+      const data = await response.json();
+      setStockData(data);
+
+      // Check if the selected stock is still present in the fetched data
+      const selectedStockData = data.find((stock) => stock.stockName === selectedStock);
+      if (selectedStockData) {
+        setSelectedPrice(selectedStockData.price);
+      } else {
+        // If selected stock is not present, select the first stock
+        setSelectedStock(data.length > 0 ? data[0].stockName : '');
+      }
+    } catch (error) {
+      console.error('Error fetching stock data:', error);
     }
-  //useEffect to fetch stock price data when the selected stock changes
+  };
+
   useEffect(() => {
-    fetchPriceForSelectedStock();
-    // Setting up an interval to fetch updated price every minute
-    const interval = setInterval(fetchPriceForSelectedStock, 60000);
+    fetchData(); // Initial data fetch
 
-    // Cleaning up the interval when the component unmounts
-    return () => clearInterval(interval);
+    const interval = setInterval(() => {
+      fetchData(); // Fetch updated data every minute
+    }, 60000);
 
-  }, []);
+    return () => {
+      clearInterval(interval); // Clean up the interval
+    };
+  }, []); // Empty dependency array to run only once
 
-   const handleDropdownChange = (event) => {
+  const handleDropdownChange = (event) => {
     const selectedStockName = event.target.value;
     setSelectedStock(selectedStockName);
 
@@ -41,39 +48,20 @@ function Home() {
   };
 
   return (
-    <div className="container mt-5">
-      <h1 className="text-center">Stock Price Tracker</h1>
-      <div className="row justify-content-center mt-3">
-        <div className="col-md-6">
-          <div className="card shadow">
-            <div className="card-body">
-              <h3 className="text-center mb-4">Stock Price</h3>
-              <div className="form-group">
-                <label htmlFor="stockDropdown">Select a Stock:</label>
-                <select
-                  className="form-control"
-                  id="stockDropdown"
-                  value={selectedStock}
-                  onChange={handleDropdownChange}
-                >
-                  {stockData.map((option) => (
-                    <option key={option._id} value={option.stockName}>
-                      {option.stockName}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="text-center card shadow my-5">
-              {selectedPrice !== null && (
-        <h4>Selected Price for {selectedStock}: ${selectedPrice}</h4>
+    <div>
+      <h2>Select a Stock:</h2>
+      <select value={selectedStock} onChange={handleDropdownChange}>
+        {stockData.map((stock) => (
+          <option key={stock._id} value={stock.stockName}>
+            {stock.stockName}
+          </option>
+        ))}
+      </select>
+      {selectedPrice !== null && (
+        <p>Selected Price for {selectedStock}: ${selectedPrice}</p>
       )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
 
-export default Home;
+export default StockDropdown;
