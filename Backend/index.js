@@ -9,7 +9,7 @@ connectToMongoDB();
 
 app.use(cors(
     {
-        origin:["https://stock-app-bay.vercel.app"],
+        origin:["https://localhost:8080"],
         methods:["POST","GET"],
         credentials:true
     }
@@ -22,7 +22,7 @@ app.use('/', appRoute);
 const updateStockPrices = () => {
     setInterval(async () => {
       try {
-        await axios.post('https://stock-app-server.vercel.app/update');
+        await axios.post('https://localhost:8080/update');
       } catch (error) {
         console.error('Error updating stock prices:', error);
       }
