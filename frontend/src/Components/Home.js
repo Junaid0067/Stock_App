@@ -19,7 +19,6 @@ function Home() {
     }
   //useEffect to fetch stock price data when the selected stock changes
   useEffect(() => {
-    fetchPriceForSelectedStock();
     // Setting up an interval to fetch updated price every minute
     const interval = setInterval(fetchPriceForSelectedStock, 60000);
 
