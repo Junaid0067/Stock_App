@@ -12,8 +12,11 @@ function Home() {
                         .then((data) => {
                             setStockData(data);
                             if (data.length > 0) {
-                                setSelectedStock(data[0].stockName);
-                                setSelectedPrice(data[0].price);
+                                 if (data.find((stock) => stock.stockName === selectedStock)) {
+            setSelectedPrice(data[0].price);
+          } else {
+            setSelectedStock(data[0].stockName);
+          }
                               }
                         })
     }
@@ -31,12 +34,6 @@ function Home() {
   const handleDropdownChange = (event) => {
     const selectedStockName = event.target.value;
     setSelectedStock(selectedStockName);
-
-    // Finding the corresponding price based on the selected stockName
-    const selectedStockData = stockData.find((stock) => stock.stockName === selectedStockName);
-    if (selectedStockData) {
-      setSelectedPrice(selectedStockData.price);
-    }
   };
 
   return (
