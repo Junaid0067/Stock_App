@@ -6,7 +6,7 @@ function Home() {
   const [selectedPrice, setSelectedPrice] = useState(null);
   const fetchPriceForSelectedStock = ()=>{
         fetch(
-            "http://localhost:8080/getStocksData")
+            "https://stock-app-server.vercel.app/getStocksData")
                         .then((res) => res.json())
                         .then((data) => {
                             setStockData(data);

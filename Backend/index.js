@@ -7,7 +7,13 @@ const axios = require('axios');
 const  appRoute  = require('./Routes/appRoute');
 connectToMongoDB();
 
-app.use(cors())
+app.use(cors(
+    {
+        origin:["https://stock-app-server.vercel.app/"],
+        methods:["POST","GET"],
+        credentails:true
+    }
+))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -16,7 +22,7 @@ app.use('/', appRoute);
 const updateStockPrices = () => {
     setInterval(async () => {
       try {
-        await axios.post('http://localhost:8080/update');
+        await axios.post('https://stock-app-server.vercel.app/update');
       } catch (error) {
         console.error('Error updating stock prices:', error);
       }
