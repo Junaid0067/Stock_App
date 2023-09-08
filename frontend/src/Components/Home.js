@@ -25,7 +25,7 @@ function Home() {
     // Cleaning up the interval when the component unmounts
     return () => clearInterval(interval);
 
-  }, [selectedStock]);
+  }, []);
 
   const handleDropdownChange = (event) => {
     const selectedStockName = event.target.value;
