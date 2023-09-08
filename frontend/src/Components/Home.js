@@ -7,7 +7,7 @@ function Home() {
   const [selectedPrice, setSelectedPrice] = useState(null);
   const fetchPriceForSelectedStock = async ()=>{
        await axios.get(
-            "https://localhost:8080/getStocksData")
+            "https://stock-tracker-d16p.onrender.com/getStocksData")
                         .then((res) => res.json())
                         .then((data) => {
                             setStockData(data);
